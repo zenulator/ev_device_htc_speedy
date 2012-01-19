@@ -25,7 +25,19 @@
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
 TARGET_LEGACY_CAMERA := true
+
 TARGET_CAMERA_WRAPPER := speedy
+ifneq ($(TARGET_CAMERA_WRAPPER),)
+PRODUCT_COPY_FILES += \
+    device/htc/speedy/proprietary/libcamera-$(TARGET_CAMERA_WRAPPER).so:obj/lib/libcamera-$(TARGET_CAMERA_WRAPPER).so \
+    device/htc/speedy/proprietary/libcamera-$(TARGET_CAMERA_WRAPPER).so:/system/lib/libcamera-$(TARGET_CAMERA_WRAPPER).so \
+    device/htc/speedy/proprietary/libcamera-$(TARGET_CAMERA_WRAPPER).so:obj/lib/libcamera.so \
+    device/htc/speedy/proprietary/libcamera-$(TARGET_CAMERA_WRAPPER).so:/system/lib/libcamera.so
+else
+PRODUCT_COPY_FILES += \
+    vendor/htc/speedy/proprietary/libcamera.so:obj/lib/libcamera.so \
+    vendor/htc/speedy/proprietary/libcamera.so:/system/lib/libcamera.so
+endif
 
 # inherit from the proprietary version
 -include vendor/htc/speedy/BoardConfigVendor.mk
@@ -69,16 +81,10 @@ BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x4000000
 BOARD_KERNEL_PAGE_SIZE := 4096
 
-BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_LIBRPC := true
-BOARD_USE_QCOM_PMEM := true
-BOARD_USES_QCOM_LEGACY := false
-BOARD_USES_LEGACY_QCOM := false
 BOARD_CAMERA_USE_GETBUFFERINFO := true
 
 BOARD_EGL_CFG := device/htc/speedy/prebuilt/system/lib/egl/egl.cfg
-BOARD_USES_OVERLAY := true
+BOARD_USES_ADRENO_200 := true
 ARCH_ARM_HAVE_VFP := true
 USE_OPENGL_RENDERER := true
 TARGET_FORCE_CPU_UPLOAD := true
@@ -88,9 +94,13 @@ TARGET_USES_GENLOCK := true
 TARGET_USES_SF_BYPASS := true
 TARGET_HAVE_BYPASS := true
 TARGET_GRALLOC_USES_ASHMEM := true
-TARGET_HAVE_HDMI_OUT := true
-TARGET_HARDWARE_3D := true
-BOARD_USES_ADRENO_200 := true
+
+#TARGET_QCOM_HDMI_OUT := true
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
+#BOARD_USES_QCOM_GPS := true
+BOARD_USE_QCOM_PMEM := true
 
 COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE
 
