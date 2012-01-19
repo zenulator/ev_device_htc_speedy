@@ -58,8 +58,8 @@ PRODUCT_PACKAGES += \
     audio_policy.msm7x30 \
     copybit.msm7x30 \
     gralloc.msm7x30 \
-    overlay.msm7x30 \
     hwcomposer.msm7x30 \
+    camera.msm7x30 \
     libOmxCore \
     libOmxVenc \
     libOmxVdec \
